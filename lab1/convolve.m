@@ -1,6 +1,7 @@
 function [y,ny] = convolve(x,h,nx,nh)
     nymin = nx(1) + nh(1);
-    nymax = nx(length(x)) + nh(length(h));
+    nymax = nx(end) + nh(end);
     ny = [nymin: nymax];
     y = conv(x,h);
 end
+
