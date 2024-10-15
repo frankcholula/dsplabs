@@ -47,18 +47,38 @@ title('(iv) Convolution: xtilde * h with x = [1,2,3,4,3,2]');
 xlabel('n');
 ylabel('y[n]');
 
-% v) 
+% v) y = x * h, with x = [0,0,1,1] and h = [0.5, 0.5]
 x = [0,0,1,1];
 xtilde = repmat(x, 1, 10);
 nx = 0: length(xtilde) - 1;
 h = [0.5, 0.5];
 nh = 0:1;
 [y, ny] = convolve(xtilde, h, nx, nh);
-subplot(3,2,5); % Fifth subplot (row 3, col 1)
+subplot(3,2,5);
 stem(ny, y)
 title('(v) Convolution: xtilde * h with x = [0,0,1,1]')
 xlabel('n');
 ylabel('y[n]');
 
+
+% a periodic signal convolved with a simple linear filter will produce a periodic output.
+
+x = [0, 0, 1, 1];
+xtilde = repmat(x, 1, 5); % Repeat the signal
+nx = 0: length(xtilde) - 1;
+
+% Filter h longer than the period of x
+h = [0.5, 0.5, 0.5, 0.5, 0.5];
+nh = 0: length(h) - 1;
+
+[y, ny] = convolve(xtilde, h, nx, nh);
+
+subplot(3,2,6);
+stem(ny, y);
+title('(vi) Convolution: xtilde * h with filter h = [0.5, 0.5, 0.5, 0.5, 0.5]');
+xlabel('n');
+ylabel('y[n]');
+
 % Display the figure
+% the periodicity breaks in the 6th subplot when the filter becomes longer than the period of the signal
 sgtitle('Convolution Examples');
